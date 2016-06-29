@@ -12,32 +12,17 @@
     "authors": [
         {
             "name": "Jason de Ridder",
-            "email": "mail@deargonauten.com",
-            "homepage": "http://www.deargonauten.com",
-            "role": "Developer"
+            "email": "mail@deargonauten.com"
         }
     ],
     "require": {
         "illuminate/support": "~5.1",
         "php" : ">=5.5|>=7.0"
     },
-    "require-dev": {
-        "phpunit/phpunit" : "~4.0||~5.0",
-        "scrutinizer/ocular": "~1.1",
-        "squizlabs/php_codesniffer": "~2.3"
-    },
     "autoload": {
         "psr-4": {
             "deArgonauten\\TransLaravel\\": "src"
         }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "deArgonauten\\TransLaravel\\": "tests"
-        }
-    },
-    "scripts": {
-        "test": "phpunit"
     },
     "extra": {
         "branch-alias": {
