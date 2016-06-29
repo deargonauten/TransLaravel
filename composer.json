@@ -1,5 +1,5 @@
 {
-    "name": "deArgonauten/TransLaravel",
+    "name": "deargonauten/translaravel",
     "type": "library",
     "description": "A Laravel package which translates all. Routes, models and strings.",
     "keywords": [
