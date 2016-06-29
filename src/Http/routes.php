@@ -1,0 +1,42 @@
+<?php
+
+	Route::get('/_translations/add/{locale}', function($locale)
+	{
+		app('translator')->addLanguage($locale);
+		return redirect('/_translations/languages');
+	});
+
+	Route::get('/_translations/{what}', function($what)
+	{
+		$list = [];
+		$header = [];
+
+		switch($what)
+		{
+			case 'languages':
+			case 'language':
+				$list = \deArgonauten\TransLaravel\Models\Languages::all();
+				$header = Schema::getColumnListing(config('translaravel.table_prefix') . 'languages');
+
+			break;
+			case 'strings':
+			case 'string':
+				$list = \deArgonauten\TransLaravel\Models\StringTranslations::all();
+				$header = Schema::getColumnListing(config('translaravel.table_prefix') . 'string_translations');
+
+			break;
+			case 'models':
+			case 'model':
+				$list = \deArgonauten\TransLaravel\Models\ModelTranslations::all();
+				$header = Schema::getColumnListing(config('translaravel.table_prefix') . 'model_translations');
+
+			break;
+			case 'routes':
+			case 'route':
+				$list = \deArgonauten\TransLaravel\Models\RouteTranslations::all();
+				$header = Schema::getColumnListing(config('translaravel.table_prefix') . 'route_translations');
+
+			break;
+		}
+		return view('translaravel::list', ['list' => $list, 'head' => $header]);
+	});
