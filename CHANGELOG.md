@@ -2,10 +2,11 @@
 
 All Notable changes to `TransLaravel` will be documented in this file.
 
-## 0.0.1 - 2016-06-12
+## 1.0.1 - 2016-07-01
 
 ### Added
-- Base package. It is working, but not finalized.
+- In lang() added support of the $parameter parameter.
+- Added helpers function translateURL($url, $locale = null) and unstranslateURL($url).
 
 ### Deprecated
 - Nothing

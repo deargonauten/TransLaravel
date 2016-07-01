@@ -26,7 +26,7 @@ class TransLaravel
 
 	/**
 	 * String translator to inherit the Laravels trans() method.
-	 * Lacks the use of $parameters and $domain.
+	 * Lacks the use of $domain.
 	 *
 	 * @param $key
 	 * @param array $parameters
@@ -36,6 +36,17 @@ class TransLaravel
 	 */
 	public function trans($key, array $parameters = [], $domain = 'messages', $locale = null) : string
 	{
+
+		if(count($parameters) > 0)
+		{
+			// Replace parameters
+			foreach($parameters as $keyParam => $param)
+			{
+				if(is_string($keyParam))
+					$key = str_replace(':' . $keyParam, $param, $key);
+			}
+		}
+
 		if(app('translator')->getLocale() == config('app.fallback_locale'))
 			return $key;
 
