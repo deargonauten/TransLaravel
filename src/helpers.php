@@ -1,6 +1,4 @@
 <?php
-namespace deArgonauten\TransLaravel;
-
 use deArgonauten\TransLaravel\Models\Languages;
 use deArgonauten\TransLaravel\TransLaravel;
 
