@@ -2,7 +2,7 @@
 
 All Notable changes to `TransLaravel` will be documented in this file.
 
-## 1.0.1 - 2016-07-01
+## 1.0.2 - 2016-07-01
 
 ### Added
 - In lang() added support of the $parameter parameter.
@@ -12,7 +12,7 @@ All Notable changes to `TransLaravel` will be documented in this file.
 - Nothing
 
 ### Fixed
-- Nothing
+- Namespace error
 
 ### Removed
 - Nothing
