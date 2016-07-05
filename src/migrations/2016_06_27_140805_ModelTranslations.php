@@ -1,8 +1,18 @@
 <?php
-
+/**
+ * Creating the model_translations table
+ *
+ * @package deArgonauten/TransLaravel
+ * @author Jason de Ridder <mail@deargonauten.com>
+ * @copyright Jason de Ridder
+ * @license MIT
+ */
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class ModelTranslations
+ */
 class ModelTranslations extends Migration
 {
     /**

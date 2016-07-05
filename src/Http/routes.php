@@ -1,4 +1,13 @@
 <?php
+/**
+ * Reads out the translation tables. Will be removed in next version
+ *
+ * @deprecated
+ * @package deArgonauten/TransLaravel
+ * @author Jason de Ridder <mail@deargonauten.com>
+ * @copyright Jason de Ridder
+ * @license MIT
+ */
 
 	Route::get('/_translations/add/{locale}', function($locale)
 	{

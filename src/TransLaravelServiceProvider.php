@@ -1,9 +1,19 @@
 <?php
-
+/**
+ * The ServiceProvider
+ * @package deArgonauten/TransLaravel
+ * @author Jason de Ridder <mail@deargonauten.com>
+ * @copyright Jason de Ridder
+ * @license MIT
+ */
 namespace deArgonauten\TransLaravel;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class TransLaravelServiceProvider
+ * @package deArgonauten\TransLaravel
+ */
 class TransLaravelServiceProvider extends ServiceProvider
 {
     /**
@@ -25,6 +35,8 @@ class TransLaravelServiceProvider extends ServiceProvider
 
 		$this->commands(['deArgonauten\TransLaravel\Commands\InstallTransLaravel']);
 
+		require_once __DIR__ . '/helpers.php';
+
         $this->app->singleton('translator', function ($app) {
 			$trans = new TransLaravel();
 			$trans->setLocale(config('app.fallback_locale'));
@@ -33,6 +45,9 @@ class TransLaravelServiceProvider extends ServiceProvider
         });
     }
 
+	/**
+	 * The Boot method
+	 */
 	public function boot()
 	{
 		// Views

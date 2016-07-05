@@ -1,8 +1,19 @@
 <?php
+/**
+ * Creating the string_translations table
+ *
+ * @package deArgonauten/TransLaravel
+ * @author Jason de Ridder <mail@deargonauten.com>
+ * @copyright Jason de Ridder
+ * @license MIT
+ */
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class StringTranslations
+ */
 class StringTranslations extends Migration
 {
     /**

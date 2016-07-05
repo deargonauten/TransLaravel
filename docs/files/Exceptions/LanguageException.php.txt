@@ -1,0 +1,20 @@
+<?php
+/**
+ * Exception for language or translation errors
+ *
+ * @package deArgonauten/TransLaravel
+ * @subpackage Exceptions
+ * @author Jason de Ridder <mail@deargonauten.com>
+ * @copyright Jason de Ridder
+ * @license MIT
+ */
+namespace deArgonauten\TransLaravel\Exceptions;
+
+use RuntimeException;
+
+/**
+ * Class LanguageException
+ * @package deArgonauten\TransLaravel\Exceptions
+ */
+class LanguageException extends RuntimeException {}
+ 

@@ -20,11 +20,21 @@ Add the ServiceProvider in: `config/app.php`
 deArgonauten\TransLaravel\TransLaravelServiceProvider::class,
 ```
 
+An artisan command is now available. Run it.
 ``` bash
 $ php artisan translaravel:install
 ```
 
+And... DONE!
+
 ## Usage
+
+First add a language by doing:
+``` php
+Lang::addLanguage('locale');
+// en, nl, de, fr, et cetera
+```
+See full list: [https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
 
 ### String Translations
 
@@ -64,7 +74,19 @@ Route::get(
 		return view('pages.contact');
 	});
 ```
-_PLEASE NOTE:_ The artisan console gets inaccesible. Comment all ```Lang::route(...)``` out before using artisan again.
+
+### Helper functions
+We hook you up with some helper functions
+``` php
+translateURL('url', 'locale');
+// Returns a link in the requested locale.
+// By omiting the locale parameter it will fetch the current set language.
+
+untranslateURL('url');
+// Returns a link in the default language
+
+translateLink('url', 'name', [parameters], locale);
+// Returns something like this: <a href="translateURL('url')" class="this and that">trans('name')</a>
 
 ## Change log
 

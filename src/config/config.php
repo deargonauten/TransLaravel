@@ -1,4 +1,12 @@
 <?php
+/**
+ * Configuration file for TransLaravel
+ *
+ * @package deArgonauten/TransLaravel
+ * @author Jason de Ridder <mail@deargonauten.com>
+ * @copyright Jason de Ridder
+ * @license MIT
+ */
 
 return [
 

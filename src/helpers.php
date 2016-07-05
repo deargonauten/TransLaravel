@@ -1,4 +1,12 @@
 <?php
+/**
+ * Helper functions
+ *
+ * @package deArgonauten/TransLaravel
+ * @author Jason de Ridder <mail@deargonauten.com>
+ * @copyright Jason de Ridder
+ * @license MIT
+ */
 use deArgonauten\TransLaravel\Models\Languages;
 use deArgonauten\TransLaravel\TransLaravel;
 
@@ -12,7 +20,7 @@ if( ! function_exists( 'translateURL' ) )
 	 * @param string|null $locale
 	 * @return string
 	 */
-	function translateURL(string $url, $locale = null) : string
+	function translateURL($url, $locale = null)
 	{
 		$t = app('translator') ?: new TransLaravel();
 		$locale = $locale ?: $t->getActiveLanguage() ?: \App::getLocale();
@@ -36,12 +44,18 @@ if( ! function_exists( 'translateURL' ) )
 		$returnURL .= isset($arrURL['query']) ? '?' . $arrURL['query'] : '';
 		$returnURL .= isset($arrURL['fragment']) ? '#' . $arrURL['fragment'] : '';
 
-		return $returnURL;
+		return str_replace('//', '/', $returnURL);
 	}
 }
 
 if ( ! function_exists('untranslateURL'))
 {
+	/**
+	 * Return an url in the default locale
+	 *
+	 * @param $url
+	 * @return string
+	 */
 	function untranslateURL($url)
 	{
 		$t = app('translator') ?: new TransLaravel();
@@ -70,7 +84,21 @@ if ( ! function_exists('untranslateURL'))
 		$returnURL .= isset($arrURL['query']) ? '?' . $arrURL['query'] : '';
 		$returnURL .= isset($arrURL['fragment']) ? '#' . $arrURL['fragment'] : '';
 
-		return $returnURL;
+		return str_replace('//', '/', $returnURL);
 	}
 }
- 
+
+if (! function_exists('translateLink') )
+{
+	function translateLink($url, $name, $parameters = [], $locale = null)
+	{
+		$extra_list = '';
+		foreach ($parameters as $k => $v)
+		{
+			$extra_list .= " $k=" . '"'. (is_array($v) ? implode(' ', $v) : $v) . '"';
+		}
+
+		return '<a href="'.translateURL($url, $locale) .'"'. $extra_list .'>' . Lang::get($name) . '</a>';
+
+	}
+}

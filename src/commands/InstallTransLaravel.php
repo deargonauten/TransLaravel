@@ -1,9 +1,23 @@
 <?php
+/**
+ * Register the translaravel:install command
+ *
+ * @package deArgonauten/TransLaravel
+ * @subpackage Commands
+ * @author Jason de Ridder <mail@deargonauten.com>
+ * @copyright Jason de Ridder
+ * @license MIT
+ * @version 1.0.0
+ */
 namespace deArgonauten\TransLaravel\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 
+/**
+ * Class InstallTransLaravel
+ * @package deArgonauten\TransLaravel\Commands
+ */
 class InstallTransLaravel extends Command
 {
 	/**
@@ -63,6 +77,9 @@ class InstallTransLaravel extends Command
 		$this->info('All done!');
 	}
 
+	/**
+	 * Change the app/Http/Kernel.php file to add the Middleware
+	 */
 	private function addMiddleware()
 	{
 		$kernel = file_get_contents(getcwd() . '/app/Http/Kernel.php');
@@ -78,6 +95,9 @@ class InstallTransLaravel extends Command
 		file_put_contents(getcwd() . '/app/Http/Kernel.php', $return);
 	}
 
+	/**
+	 * Change the config/app.php file to mute the default translator.
+	 */
 	private function addServiceProvider()
 	{
 		$kernel = file_get_contents(getcwd() . '/config/app.php');

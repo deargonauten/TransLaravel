@@ -2,20 +2,23 @@
 
 All Notable changes to `TransLaravel` will be documented in this file.
 
-## 1.0.2 - 2016-07-01
+## 1.0.3 - [2016-07-01]
 
 ### Added
-- In lang() added support of the $parameter parameter.
-- Added helpers function translateURL($url, $locale = null) and unstranslateURL($url).
+- Tags and description of package
+- Better README.md
+- PHPDocs
 
 ### Deprecated
 - Nothing
 
 ### Fixed
-- Namespace error
+- Prevent to throw an error while requesting a language that doesn't exists
+- Redirect status code to 303
+- Artisan errors when having Route::lang('') in routes.php file
 
 ### Removed
-- Nothing
+- Debugbar reference
 
 ### Security
 - Nothing

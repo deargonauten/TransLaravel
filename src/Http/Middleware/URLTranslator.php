@@ -1,4 +1,9 @@
 <?php
+/**
+ * Will be deleted in next version
+ *
+ * @deprecated
+ */
 namespace deArgonauten\TransLaravel\Http\Middleware;
 
 use deArgonauten\TransLaravel\TransLaravel;

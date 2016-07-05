@@ -1,14 +1,36 @@
 <?php
+/**
+ * The RouteTranslator object.
+ * @package deArgonauten/TransLaravel
+ * @subpackage Translator
+ * @author Jason de Ridder <mail@deargonauten.com>
+ * @copyright Jason de Ridder
+ * @license MIT
+ */
 namespace deArgonauten\TransLaravel\Translators;
 
 use deArgonauten\TransLaravel\Models\RouteTranslations;
 use deArgonauten\TransLaravel\TransLaravel;
 
+/**
+ * Class RouteTranslator
+ * @package deArgonauten\TransLaravel\Translators
+ */
 class RouteTranslator
 {
+	/**
+	 * @var null|string
+	 */
 	private $locale;
+	/**
+	 * @var int
+	 */
 	private $language_id;
 
+	/**
+	 * RouteTranslator constructor.
+	 * @param string|null $locale
+	 */
 	public function __construct(string $locale = null)
 	{
 		$this->locale 		= !is_null($locale) ? $locale : app('translator')->getActiveLanguage();

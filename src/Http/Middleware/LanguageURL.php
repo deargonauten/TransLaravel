@@ -1,8 +1,21 @@
 <?php
+/**
+ * LanguageURL middleware. Used to make sure there is a locale prefix of the url
+ * 
+ * @package deArgonauten/TransLaravel
+ * @subpackage Http/Middleware
+ * @author Jason de Ridder <mail@deargonauten.com>
+ * @copyright Jason de Ridder
+ * @license MIT
+ */
 namespace deArgonauten\TransLaravel\Http\Middleware;
 
 use deArgonauten\TransLaravel\TransLaravel;
 
+/**
+ * Class LanguageURL
+ * @package deArgonauten\TransLaravel\Http\Middleware
+ */
 class LanguageURL
 {
 
@@ -25,7 +38,9 @@ class LanguageURL
 		}
 
 		$segments = $request->segments();
-		if(count($segments) > 0 && app('translator')->isLocale($request->segment(1)))
+		if(count($segments) > 0
+			&& app('translator')->isLocale($request->segment(1))
+			&& app('translator')->localeToId($request->segment(1)) > 0)
 		{
 			// Other language
 			\App::setLocale($request->segment(1));
@@ -40,7 +55,7 @@ class LanguageURL
 		$locale = app('translator')->sniffLanguage();
 		$request->session()->put('locale', $locale);
 		$request->session()->save();
-		return redirect('/' . $locale, 304, ['Vary' => 'Accept-Language']);
+		return redirect('/' . $locale, 303, ['Vary' => 'Accept-Language']);
 		exit;
 	}
 

@@ -1,4 +1,13 @@
 <?php
+/**
+ * The Model trait for extending the default eloquent functionality.
+ *
+ * @package deArgonauten/TransLaravel
+ * @subpackage Models
+ * @author Jason de Ridder <mail@deargonauten.com>
+ * @copyright Jason de Ridder
+ * @license MIT
+ */
 namespace deArgonauten\TransLaravel\Models;
 
 
@@ -14,6 +23,10 @@ use Illuminate\Support\Str;
 trait Translations
 {
 
+	/**
+	 * When true there will be no translations made.
+	 * @var bool
+	 */
 	protected $skipTranslation = false;
 
 	/**

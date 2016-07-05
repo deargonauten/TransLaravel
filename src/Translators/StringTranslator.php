@@ -1,12 +1,30 @@
 <?php
+/**
+ * The StringTranslator object.
+ * @package deArgonauten/TransLaravel
+ * @subpackage Translators
+ * @author Jason de Ridder <mail@deargonauten.com>
+ * @copyright Jason de Ridder
+ * @license MIT
+ */
 namespace deArgonauten\TransLaravel\Translators;
 use deArgonauten\TransLaravel\Models\StringTranslations;
 use deArgonauten\TransLaravel\TransLaravel;
 
+/**
+ * Class StringTranslator
+ * @package deArgonauten\TransLaravel\Translators
+ */
 class StringTranslator
 {
 
+	/**
+	 * @var string
+	 */
 	private $locale;
+	/**
+	 * @var int
+	 */
 	private $language_id;
 
 	public function __construct(string $locale = null)
@@ -28,11 +46,11 @@ class StringTranslator
 		$language_id 	= ($locale == $this->locale ? $this->language_id : TransLaravel::class()->localeToId($locale));
 
 		// Create a record if not exists
-		if(!$this->has($key, $locale))
+		if(!$this->has($key, $locale) && $language_id > 0)
 			$this->set($key, $key, $locale);
 
-		$q = StringTranslations::whereSearchKey(md5($key))->whereLanguageId($language_id)->first()->value;
-		return (is_null($q) ? $key : $q);
+		$q = StringTranslations::whereSearchKey(md5($key))->whereLanguageId($language_id)->first();
+		return (is_null($q) ? $key : $q->value);
 
 	}
 

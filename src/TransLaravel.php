@@ -1,4 +1,12 @@
 <?php
+/**
+ * The TransLarvel class
+ *
+ * @package deArgonauten/TransLaravel
+ * @author Jason de Ridder <mail@deargonauten.com>
+ * @copyright Jason de Ridder
+ * @license MIT
+ */
 namespace deArgonauten\TransLaravel;
 
 use deArgonauten\TransLaravel\Exceptions\LanguageException;
@@ -6,22 +14,25 @@ use deArgonauten\TransLaravel\Models\Languages;
 use deArgonauten\TransLaravel\Translators\RouteTranslator;
 use deArgonauten\TransLaravel\Translators\StringTranslator;
 use deArgonauten\TransLaravel\Translators\ModelTranslator;
-use Debugbar;
 
+/**
+ * Class TransLaravel
+ * @package deArgonauten\TransLaravel
+ */
 class TransLaravel
 {
 
 	private $locale;
 
-    /**
-     * Create a new TransLaravel Instance
-     */
-    public function __construct()
-    {
-        // constructor body
+	/**
+	 * Create a new TransLaravel Instance
+	 */
+	public function __construct()
+	{
+		// constructor body
 		return $this;
 
-    }
+	}
 
 
 	/**
@@ -34,7 +45,7 @@ class TransLaravel
 	 * @param null|str $locale
 	 * @return string
 	 */
-	public function trans($key, array $parameters = [], $domain = 'messages', $locale = null) : string
+	public function trans($key, array $parameters = [], $domain = 'messages', $locale = null)
 	{
 
 		if(count($parameters) > 0)
@@ -64,11 +75,11 @@ class TransLaravel
 	 *
 	 * @return string
 	 */
-    public function getActiveLanguage() : string
-    {
+	public function getActiveLanguage()
+	{
 		return $this->getLocale();
-        //return app()->getLocale();
-    }
+		//return app()->getLocale();
+	}
 
 	/**
 	 * Determine if string is a ISO639-1 locale
@@ -76,7 +87,7 @@ class TransLaravel
 	 * @param string $string
 	 * @return bool
 	 */
-	public function isLocale(string $string) : bool
+	public function isLocale($string)
 	{
 		return (in_array($string, array_keys(config('translaravel.iso639-1'))));
 	}
@@ -88,7 +99,7 @@ class TransLaravel
 	 * @param bool $ipCheck
 	 * @return string
 	 */
-	public static function sniffLanguage($ipCheck = false) : string
+	public static function sniffLanguage($ipCheck = false)
 	{
 		if(!is_null(session()->get('locale', null)))
 			return app('translator')->parseLocale(session()->get('locale'));
@@ -108,7 +119,7 @@ class TransLaravel
 				while ((!feof($fs)) && (!$info['timed_out']))
 				{
 					$data .= fgets($fs);
-                	$info = stream_get_meta_data($fs);
+					$info = stream_get_meta_data($fs);
 					flush();
 				}
 
@@ -133,7 +144,7 @@ class TransLaravel
 	 * @param string $locale
 	 * @return TransLaravel
 	 */
-	public function setActiveLanguage(string $locale) : self
+	public function setActiveLanguage(string $locale)
 	{
 		$t = $this->parseLocale($locale);
 		app()->setLocale($t);
@@ -175,7 +186,7 @@ class TransLaravel
 	 * @param bool $getInactive
 	 * @return array
 	 */
-	public function getLocales(bool $getInactive = false) : array
+	public function getLocales($getInactive = false)
 	{
 		$languageModel = Languages::class;
 		if($getInactive)
@@ -184,7 +195,7 @@ class TransLaravel
 			$models = $languageModel->whereActive(1)->get();
 
 		// Add app locale
-		$locales = Collection::make($models->toArray())->pluck('abbreviation');
+		$locales = collect($models->toArray())->pluck('abbreviation');
 		$locales->push(config('app.fallback_locale'));
 		// Make sure it is unique
 		$locales->unique();
@@ -201,7 +212,7 @@ class TransLaravel
 	 * @param bool $iso6391Check
 	 * @return string
 	 */
-	private function parseLocale(string $locale, bool $iso6391Check = true) : string
+	private function parseLocale($locale, $iso6391Check = true)
 	{
 		$l = strtolower(\Locale::getPrimaryLanguage($locale));
 		if(!config('translaravel.iso639-1.' . $l, false))
@@ -217,7 +228,7 @@ class TransLaravel
 	 * @param bool $getInactive
 	 * @return bool
 	 */
-	public function localeExists(string $locale, bool $getInactive = false) : bool
+	public function localeExists($locale, $getInactive = false)
 	{
 		$locales = $this->getLocales($getInactive);
 
@@ -231,10 +242,13 @@ class TransLaravel
 	 * @param string $locale
 	 * @return integer|null
 	 */
-	public function localeToId(string $locale)
+	public function localeToId($locale)
 	{
 		if($locale == config('app.fallback_locale'))
-			return 0;
+			return -1;
+
+		if(Languages::whereAbbreviation($this->parseLocale($locale))->count() == 0)
+			return -1;
 
 		return Languages::whereAbbreviation($this->parseLocale($locale))->first()->id;
 	}
@@ -245,7 +259,7 @@ class TransLaravel
 	 * @param String $route
 	 * @return String
 	 */
-	public static function route(string $route, $locale = null)
+	public static function route($route, $locale = null)
 	{
 		if(!\Lang::isLocale(request()->segment(1)))
 			return $route;
@@ -261,7 +275,7 @@ class TransLaravel
 
 	public static function url(string $url, $locale = null)
 	{
-		
+
 	}
 
 	/**
@@ -294,7 +308,7 @@ class TransLaravel
 	 * @param bool $doISO6391Check
 	 * @return bool
 	 */
-	public function addLanguage(string $locale, array $parameters = [], bool $doISO6391Check = true)
+	public function addLanguage($locale, $parameters = [], $doISO6391Check = true)
 	{
 		$locale = $this->parseLocale($locale, $doISO6391Check);
 		$languageInfo = [
@@ -329,18 +343,18 @@ class TransLaravel
 	 * @param string $locale
 	 * @return array
 	 */
-	public function getISO6391Information(string $locale)
+	public function getISO6391Information($locale)
 	{
 		return config('translaravel.iso639-1.' . $this->parseLocale($locale));
 	}
 
 	/**
 	 * Returns a ModelTranslator object.
-	 * 
+	 *
 	 * @param object $model
 	 * @return ModelTranslator
 	 */
-	public static function model( $model)
+	public static function model($model)
 	{
 		return new ModelTranslator(app('translator')->getActiveLanguage(), $model);
 	}
